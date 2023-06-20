@@ -2,6 +2,10 @@ import dotenv from "dotenv";
 dotenv.config();
 import express, {Request, Response} from "express";
 import cors from "cors";
+
+import { Database } from "./providers/database"
+Database.init();
+
 import Routes from "./routes";
 const app = express();
 const port = process.env.PORT || 3000;
