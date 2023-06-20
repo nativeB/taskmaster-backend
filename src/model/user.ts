@@ -9,8 +9,7 @@ export interface IUserModel extends IUser, mongoose.Document {
 
 export const UserSchema = new mongoose.Schema<IUserModel>({
 	email: { type: String, unique: true },
-	password: { type: String },
-    token: { type: String },
+	password: { type: String, select: false }
 }, {
 	timestamps: true
 });

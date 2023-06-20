@@ -3,4 +3,5 @@ export default {
     "passwordMustBeAtLeast6CharactersLong": "Password must be at least 6 characters long",
     "passwordsDoNotMatch": "Passwords do not match",
     "userCreatedSuccessfully": "User created successfully",
+    "userNotFound": "User not found",
 }
