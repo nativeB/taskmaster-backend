@@ -24,8 +24,25 @@ router.post("/auth/register", validate([
       }),
     check("email").normalizeEmail({ gmail_remove_dots: false }),
 ]), RegisterController.run);
-router.post("/task", CreateController.run);
-router.put("/task", UpdateController.run);
-router.delete("/task", DeleteController.run);
+
+router.post("/task", validate([
+    check("title", responses.titleIsRequired).not().isEmpty(),
+    check("description", responses.descriptionIsRequired).not().isEmpty(),
+    check("status", responses.statusIsRequired).not().isEmpty(),
+]), CreateController.run);
+
+router.put("/task", validate([
+    check("title", responses.titleIsRequired).not().isEmpty(),
+    check("description", responses.descriptionIsRequired).not().isEmpty(),
+    check("status", responses.statusIsRequired).not().isEmpty()
+
+
+]), UpdateController.run);
+
+router.delete("/task", 
+    validate([
+        check("id", responses.statusIsRequired).not().isEmpty()
+    ]),
+    DeleteController.run);
 
 export default router;
