@@ -1,2 +1,2 @@
-export { default as LoginController } from "./Login";
-export { default as RegisterController } from "./Register";
+export { default as LoginController } from "./login";
+export { default as RegisterController } from "./register";

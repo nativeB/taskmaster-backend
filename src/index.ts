@@ -2,13 +2,13 @@ import dotenv from "dotenv";
 dotenv.config();
 import express, {Request, Response} from "express";
 import cors from "cors";
-import Auth from "./routes/Auth";
+import Routes from "./routes";
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.use(`/${process.env.API_PREFIX}`, Auth);
+app.use(`/${process.env.API_PREFIX}`, Routes);
 
 // error handling middleware
 app.use((req: Request, res: Response) => {
