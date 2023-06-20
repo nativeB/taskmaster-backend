@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { LoginController, RegisterController } from "../controllers/auth";
-
 import { CreateController, UpdateController, DeleteController } from "../controllers/task";
 import { validate } from "../utils";
 import { check } from "express-validator";
+import {expressjwt} from "express-jwt";
 import responses from "../utils/responses";
 const router = Router();
 
@@ -25,21 +25,27 @@ router.post("/auth/register", validate([
     check("email").normalizeEmail({ gmail_remove_dots: false }),
 ]), RegisterController.run);
 
-router.post("/task", validate([
-    check("title", responses.titleIsRequired).not().isEmpty(),
-    check("description", responses.descriptionIsRequired).not().isEmpty(),
-    check("status", responses.statusIsRequired).not().isEmpty(),
-]), CreateController.run);
 
-router.put("/task", validate([
-    check("title", responses.titleIsRequired).not().isEmpty(),
-    check("description", responses.descriptionIsRequired).not().isEmpty(),
-    check("status", responses.statusIsRequired).not().isEmpty()
+router.post("/task", 
+    expressjwt({ secret: process.env.JWT_SECRET as string, algorithms: ["HS256"] }),
+    validate([
+        check("title", responses.titleIsRequired).not().isEmpty(),
+        check("description", responses.descriptionIsRequired).not().isEmpty(),
+        check("status", responses.statusIsRequired).not().isEmpty(),
+    ]), 
+    CreateController.run);
 
-
-]), UpdateController.run);
+router.put("/task", 
+    expressjwt({ secret: process.env.JWT_SECRET as string, algorithms: ["HS256"] }), 
+    validate([
+        check("title", responses.titleIsRequired).not().isEmpty(),
+        check("description", responses.descriptionIsRequired).not().isEmpty(),
+        check("status", responses.statusIsRequired).not().isEmpty()
+    ]),
+    UpdateController.run);
 
 router.delete("/task", 
+    expressjwt({ secret: process.env.JWT_SECRET as string, algorithms: ["HS256"] }),
     validate([
         check("id", responses.statusIsRequired).not().isEmpty()
     ]),

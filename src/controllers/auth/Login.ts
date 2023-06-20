@@ -43,12 +43,12 @@ class LoginController {
 
 				const token = jwt.sign(
 					{ email, password },
-					process.env.JWT_SECRET,
+					process.env.JWT_SECRET as string,
 					{ expiresIn: process.env.JWT_TIMEOUT || 360 }
 				);
 
 				
-				
+
 
 				return res.json({
 					user: {
