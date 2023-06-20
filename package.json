@@ -1,0 +1,8 @@
+{
+  "name": "taskmaster",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "license": "CC-BY-NC-ND-4.0",
+  "author": "Quincy Hutchison"
+}
