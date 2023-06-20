@@ -1,8 +1,15 @@
 {
   "name": "taskmaster",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "yarn run build && node dist/index.js"
+  },
   "engines": {
     "node": "18"
   },
+  "main": "dist/index.js",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
