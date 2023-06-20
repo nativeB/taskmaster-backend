@@ -2,8 +2,8 @@
 class RegisterController {
 	public static run (req, res): any {
 		res.json({
-      result: "register",
-    });
+		result: "register",
+		});
 	}
 }
 

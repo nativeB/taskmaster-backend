@@ -22,8 +22,6 @@ router.post("/auth/register", validate([
         }
         return true;
       }),
-    check("firstName", responses.firstNameCannotBeBlank).notEmpty(),
-    check("lastName", responses.lastNameCannotBeBlank).notEmpty(),
     check("email").normalizeEmail({ gmail_remove_dots: false }),
 ]), RegisterController.run);
 router.post("/task", CreateController.run);
