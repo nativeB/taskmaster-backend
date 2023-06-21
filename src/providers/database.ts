@@ -3,7 +3,7 @@ import { MongoError } from "mongodb";
 
 export class Database {
 	//init database
-	public static init (): any {   
+	public static init (): void {   
 		mongoose.connect(process.env.MONGO_URI as string)
 			.then(() => {
 			console.info("connected to mongo server at: " + process.env.MONGO_URI);
