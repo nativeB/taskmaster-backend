@@ -10,4 +10,5 @@ rename .env.example to .env
 ### Compiles and hot-reloads for development
 
 yarn install
+```
 yarn serve
