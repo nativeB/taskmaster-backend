@@ -12,7 +12,7 @@ class LoginController {
 		.select("+password")
 
 		if (!user) {
-			return res.json({
+			return res.status(404).json({
 				errors: [
 					responses.userNotFound
 				]
@@ -20,7 +20,7 @@ class LoginController {
 		}
 
 		if (! user.password) {
-			return res.json({
+			return res.status(404).json({
 				errors: 
 				[
 					responses.userNotFound
@@ -30,19 +30,19 @@ class LoginController {
 
 		user.comparePassword(password, (err, isMatch) => {
 				if (err) {
-					return res.json({
+					return res.status(401).json({
 						errors: [err]
 					});
 				}
 
 				if (!isMatch) {
-					return res.json({
+					return res.status(401).json({
 						errors: [responses.passwordsDoNotMatch]
 					});
 				}
 
 				const token = jwt.sign(
-					{ email, password },
+					{ email, _id: user._id },
 					process.env.JWT_SECRET as string,
 					{ expiresIn: process.env.JWT_TIMEOUT || 360 }
 				);
@@ -58,6 +58,21 @@ class LoginController {
 				});
 			});
 
+		} catch (error) {
+			res.status(500).json({ errors: error });
+		}
+	}
+
+	//check route to basically see if the token is valid
+	public static async check (req, res): Promise<any> {
+		try{
+			const {email, _id} = req.auth
+			res.json({
+				auth: {
+					email,
+					_id
+				}
+			});
 		} catch (error) {
 			res.status(500).json({ errors: error });
 		}

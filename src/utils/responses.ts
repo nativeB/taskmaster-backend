@@ -9,6 +9,7 @@ export default {
     "taskDeletedSuccessfully": "Task deleted successfully",
     "titleIsRequired": "Title is required",
     "descriptionIsRequired": "Description is required",
-    "statusIsRequired": "Status is required"
-    
+    "statusIsRequired": "Status is required",
+    "taskGetSuccessfully": "Task get successfully",
+
 }

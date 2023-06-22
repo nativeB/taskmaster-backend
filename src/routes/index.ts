@@ -5,6 +5,7 @@ import { validate } from "../utils";
 import { check } from "express-validator";
 import {expressjwt} from "express-jwt";
 import responses from "../utils/responses";
+import GetTaskController from "../controllers/task/getTask";
 const router = Router();
 
 router.post("/auth/login",
@@ -26,6 +27,12 @@ router.post("/auth/register", validate([
 ]), RegisterController.run);
 
 
+//check route
+router.get("/auth/check",
+    expressjwt({ secret: process.env.JWT_SECRET as string, algorithms: ["HS256"] }),
+    LoginController.check
+);
+
 router.post("/task", 
     expressjwt({ secret: process.env.JWT_SECRET as string, algorithms: ["HS256"] }),
     validate([
@@ -35,16 +42,21 @@ router.post("/task",
     ]), 
     CreateController.run);
 
-router.put("/task", 
+router.get("/task", 
+    expressjwt({ secret: process.env.JWT_SECRET as string, algorithms: ["HS256"] }), 
+    GetTaskController.run);
+
+router.put("/task/:id", 
     expressjwt({ secret: process.env.JWT_SECRET as string, algorithms: ["HS256"] }), 
     validate([
-        check("title", responses.titleIsRequired).not().isEmpty(),
-        check("description", responses.descriptionIsRequired).not().isEmpty(),
-        check("status", responses.statusIsRequired).not().isEmpty()
+        //optional but validate if available
+        check("title", responses.titleIsRequired).optional().not().isEmpty(),
+        check("description", responses.descriptionIsRequired).optional().not().isEmpty(),
+        check("status", responses.statusIsRequired).optional().not().isEmpty()
     ]),
     UpdateController.run);
 
-router.delete("/task", 
+router.delete("/task/:id", 
     expressjwt({ secret: process.env.JWT_SECRET as string, algorithms: ["HS256"] }),
     validate([
         check("id", responses.statusIsRequired).not().isEmpty()

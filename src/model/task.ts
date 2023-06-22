@@ -7,7 +7,7 @@ export const TaskSchema = new mongoose.Schema<ITaskModel>({
 	title: { type: String },
 	description: { type: String},
 	userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-	status: { type: String, enum: ["todo", "inProgress", "done"] }
+	status: { type: String, enum: ["todo", "inProgress", "complete"] }
 
 }, {
 	timestamps: true

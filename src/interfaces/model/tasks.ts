@@ -4,7 +4,7 @@ export interface ITask {
 	title: string;
 	description: string;
 	userId: mongoose.Schema.Types.ObjectId;
-	status: "todo" | "inProgress" | "done";
+	status: "todo" | "inProgress" | "complete";
 }
 
 export default ITask;
